@@ -32,3 +32,12 @@
 .nav-link:hover {
   color: var(--secondary-color);
 }
+
+button {
+  border: none;
+  margin-top: 10px;
+  width: fit-content;
+  align-self: baseline;
+  padding: 5px;
+  border-radius: 5px;
+}
