@@ -4,6 +4,7 @@ import Login from './pages/login';
 import About from './pages/about';
 import Home from './pages/home';
 import Register from './pages/register';
+import PostDetails from './forum/postDetails';
 import { Link } from 'react-router-dom';
 
 import './App.css';
@@ -24,7 +25,8 @@ function App() {
           <Route path="/about" element={<About />} index />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home/*" element={<Home />} />
+          <Route path="/post-details" element={<PostDetails />} />
         </Routes>
       </div>
     </Router>

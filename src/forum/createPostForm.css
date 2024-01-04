@@ -9,8 +9,8 @@
 
 .createPostForm {
     font-family: monospace;
-    width: max-content;
-    height: max-content;
+    width: 80%;
+    height: 80%;
     align-self: center;
 }
 
@@ -41,4 +41,13 @@ button {
 
 .createPostTitle {
     text-align: center;
+}
+
+.close {
+    cursor: pointer;
+    color: var(--background-color);
+}
+
+.close:hover {
+    color: var(--secondary-color);
 }

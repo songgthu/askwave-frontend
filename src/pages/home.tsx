@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Routes, Route } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import Logo from '../images/AskWaveLogo.png';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import PostForm from '../forum/createPostForm';
+import Posts from '../forum/posts';
+import YourPosts from '../forum/yourPosts';
 import './home.css';
 
 const Home = () => {
@@ -28,6 +30,19 @@ const Home = () => {
         navigate('/login');
     };
 
+    const [yourPosts, setShowYourPosts] = useState(false);
+    const [allPosts, setShowAllPosts] = useState(true);
+
+    const showAllPosts = () => {
+        setShowYourPosts(false);
+        setShowAllPosts(true);
+    };
+
+    const showYourPosts = () => {
+        setShowYourPosts(true);
+        setShowAllPosts(false);
+    };
+
     return (
         <div className='Home'>
             <div className="WelcomeBanner">
@@ -41,9 +56,8 @@ const Home = () => {
             <div className='Main'>
             <div className='LeftBar'>
                 <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={openForm}> New Post </Button>
-                <Button variant="contained" className='button' style={{ marginBottom: '10px' }}> All discussions </Button>
-                <Button variant="contained" className='button' style={{ marginBottom: '10px' }}> Favorites </Button>
-                <Button variant="contained" className='button' style={{ marginBottom: '10px' }}> Your Posts </Button>
+                <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={showAllPosts}> All discussions </Button>
+                <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={showYourPosts}> Your Posts </Button>
 
                 <h3>Categories</h3>
                 <ul className='categories' style={{ color: '#004AAD', padding: '0' }}>
@@ -59,9 +73,12 @@ const Home = () => {
             </div>
 
             <div className="posts-container">
-                <p>Post 1</p>
-                <p>Post 2</p>
+            <h3>{allPosts && !yourPosts ? 'All Discussions' : 'Your Posts'}</h3>
+            {allPosts && !yourPosts ? <Posts /> :  <YourPosts/> }
+            
             </div>
+
+
             </div>
 
             <Modal
@@ -70,8 +87,7 @@ const Home = () => {
                 onClose={closeForm}
             >
                 <div className="modal-content">
-                    <span className="close" onClick={closeForm}>&times;</span>
-                    <PostForm />
+                    <PostForm onClose={closeForm} />
                 </div>
             </Modal>
       </div>
