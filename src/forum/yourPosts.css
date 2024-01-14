@@ -7,7 +7,7 @@
     --background-color: white;
 }
 
-.post {
+.your-post {
     border-style: solid;
     border-color: var(--primary-light);
     border-radius: 5px;
@@ -16,26 +16,17 @@
     width: 700px;
     text-align: justify;
     gap: 100px;
-    cursor: pointer;
 }
 
-.post-reaction {
+.your-post-reaction {
     display: flex;
-}
-
-.post-category {
     color: var(--secondary-color);
-    background-color: var(--primary-light);
-    width: max-content;
-    padding: 5px 5px;
-    border-radius: 5px;
+    gap: 15px;
 }
 
-.edit-button, .delete-button {
-    color: #38B6FF;
-    background-color: #004AAD;
-}
-
-.post-custom {
-    margin-top: 75px;
+.your-post-custom Button {
+    align-self: center;
+    margin-right: 10px;
+    background-color: var(--secondary-light);
+    color: var(--primary-light);
 }

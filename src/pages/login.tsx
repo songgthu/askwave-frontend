@@ -36,7 +36,6 @@ function Login() {
       }
     } catch (error) {
       console.error('Error during login:', error);
-      // Handle error, show a message, etc.
     }
   };
 

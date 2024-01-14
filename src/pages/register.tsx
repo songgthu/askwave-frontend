@@ -10,16 +10,6 @@ function Register() {
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (username.length < 5 || username.length > 30) {
-      alert('Username must be between 5 and 30 characters.');
-      return;
-    }
-
-    if (password.length < 8) {
-      alert('Password must be at least 8 characters.');
-      return;
-    }
-
     try {
       const response = await fetch('http://localhost:3001/register', {
         method: 'POST',
@@ -63,6 +53,8 @@ function Register() {
           id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          pattern="^.{5,30}$"
+          title="Username must contain in between 5 and 30 characters."
           required
         />
       </div>
@@ -73,6 +65,8 @@ function Register() {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+          title="Password must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 characters"
           required
         />
       </div>

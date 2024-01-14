@@ -19,38 +19,16 @@ interface Post {
   formatted_date: string;
 }
 
-interface PostsProps {
-  selected_category: string;
-}
-
-function Posts({ selected_category }: PostsProps) {
+interface SearchResultProps {
+    searchResults: Post[];
+  }
+  
+const SearchResult: React.FC<SearchResultProps> = ({ searchResults }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { username } = location.state || {};
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [likedStates, setLikedStates] = useState<boolean[]>([]);
-
-  useEffect(() => {
-    const apiLink = selected_category != 'all' ? `http://localhost:3001/all-posts?category=${encodeURIComponent(selected_category)}` : `http://localhost:3001/all-posts`;
-    const getAllPosts = async () => {
-      try {
-        const response = await fetch(apiLink, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const data = await response.json();
-        setPosts(data);
-        const initialLikedStates = data.map((post: Post) => post.liked_by ? post.liked_by.includes(username) : false);
-        setLikedStates(initialLikedStates);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    };
-  
-    getAllPosts();
-  }, []);
+  const [posts, setPosts] = useState<Post[]>(searchResults);
+  const [likedStates, setLikedStates] = useState<boolean[]>(posts.map((post: Post) => post.liked_by ? post.liked_by.includes(username) : false));
 
   const handleLike = async (postId: number, title: string) => {
     try {
@@ -133,6 +111,6 @@ function Posts({ selected_category }: PostsProps) {
     </div>
     
   );
-}
+};
 
-export default Posts;
+export default SearchResult;

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './createPostForm.css';
 
 interface CreatePostFormProps {
-  onClose: () => void; // Define a prop to handle the close action
+  onClose: () => void;
 }
 
 const CreatePostForm: React.FC<CreatePostFormProps> = ({ onClose }) => {
@@ -14,7 +14,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onClose }) => {
   const [content, setContent] = useState('');
 
   const categories = ['General', 'Resources', 'Academic', 'CCAs', 'Events', 'Well-being'];
-  const [category, setCategory] = useState('general');
+  const [category, setCategory] = useState('General');
 
   const publishPost = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +39,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onClose }) => {
       } else {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      onClose();
     } catch (error) {
       console.error('Error during publish:', error);
     }

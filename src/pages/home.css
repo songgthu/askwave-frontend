@@ -52,6 +52,7 @@ h3 {
   color: var(--secondary-color);
   margin-top: 20px;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .Link {
@@ -76,4 +77,8 @@ h3 {
 .button{
   width: max-content;
   align-self: flex-start;
+}
+
+.expiredSessionTitle {
+  text-align: center;
 }
