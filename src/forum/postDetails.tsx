@@ -1,6 +1,8 @@
 import React, { useState, useEffect  } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -126,6 +128,41 @@ const PostDetails: React.FC = () => {
     }
   };
 
+  const handleDeleteComment = async (id: number, originalPost: string) => {
+    const confirmed = window.confirm(`Are you sure you want to delete this comment?`);
+
+    if (!confirmed) {
+      return;
+    }
+      try {
+          const response = await fetch('http://localhost:3001/delete-comment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: id,
+              owner: username,
+              original_post: originalPost
+            }),
+          });
+    
+          if (response.status === 200) {
+            setComments((prevComments) => prevComments.filter((comment: Comment) => comment.id !== id));
+            updateTotalComments(totalComments - 1);
+            alert('Comment deleted successfully');
+    
+          } else if (response.status === 404) {
+            alert('Deletion failed: Comment does not exists.');
+          } else {
+              
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error('Error during deletion:', error);
+        }
+  };
+
   const formattedDate = (date: string) => {
     return new Date(date).toLocaleString('en-US', {
       month: 'short',
@@ -168,6 +205,13 @@ const PostDetails: React.FC = () => {
             <li key={comment.id}>
               <p><b>{comment.owner}</b> &#183; {formattedDate(comment.created_at)}</p>
               <p>{comment.content}</p>
+              {(comment.owner === username || username === post.owner) && (
+                <Tooltip title="Delete comment">
+                  <Button className='delete-comment-button' onClick={() => handleDeleteComment(comment.id, post.title)}>
+                    <DeleteIcon />
+                  </Button>
+                </Tooltip>
+              )}
             </li>
           ))}
       </ul>

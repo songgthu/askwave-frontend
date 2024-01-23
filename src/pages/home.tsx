@@ -127,7 +127,7 @@ const Home = () => {
             <div className='LeftBar'>
                 <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={openForm}> New Post </Button>
                 <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={() => showAllPosts('all')}> All discussions </Button>
-                <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={() => showAllPosts('all')}> Your Posts </Button>
+                <Button variant="contained" className='button' style={{ marginBottom: '10px' }} onClick={showYourPosts}> Your Posts </Button>
 
                 <h3>Categories</h3>
                 <ul className='categories' style={{ color: '#004AAD', padding: '0' }}>
